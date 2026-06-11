@@ -38,7 +38,7 @@ export default function Navbar() {
                     ))}
                 </div>
                 <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setOpen(!isOpen)}
                 className="md:hidden text-neutral-400 hover:text-white focus:outline-none z-50"
                 >
                 <svg className="w-6 h-6"fill="none"stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@ export default function Navbar() {
                         <Link
                         key={link.name}
                         href={link.path}
-                        onClick={()=> setIsOpen(false)}
+                        onClick={()=> setOpen(false)}
                         className="text-neutral-300 hover:text-emerald-400 transition-color py-2 border-b border-neutral-900 last:border-0"
                         >
                         {link.name}
