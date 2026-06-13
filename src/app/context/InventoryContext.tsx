@@ -4,6 +4,7 @@
     name: string;
     price:string;
     imageName:string;
+    quantity?: number;
   }
   interface InventoryContextType{
     inventory: InventoryItem[];
@@ -13,7 +14,17 @@
   export const InventoryProvider = ({children}:{children: ReactNode})=>{
     const [inventory,setInventory]= useState<InventoryItem[]>([]);
     const addInventoryItem = (item: InventoryItem)=>{
-      setInventory((prev) => [...prev,item]);
+      setInventory((prev) => {
+        const existingItem = prev.find((i) => i.name === item.name);
+        if(existingItem){
+          return prev.map((i)=>
+           i.name === item.name
+          ? {...i, quantity: (i.quantity || 1) +1}
+          :i
+          );
+        }
+           return [...prev,{...item, quantity:1}];
+      });
     };
 
     return (
