@@ -75,7 +75,7 @@ export default function Home() {
                                            name:currentProduct.title|| currentProduct.name ||"Shoe Item",
                                            price: String(currentProduct.price),
                                            imageName: currentProduct.image || currentProduct.imageName || "",
-                                           quantity:1
+                                           
                                         });
                                      } }
                                 
