@@ -2,6 +2,7 @@
 import React from "react";
 import { useCart } from './component/cartContext'
 import { useLiked } from "./component/likedContext";
+import { useInventory } from "./context/InventoryContext";
 
 const product = [
     {
@@ -30,7 +31,7 @@ const product = [
     }
 ];
 export default function Home() {
-    const { addToCart } = useCart();
+    const {addInventoryItem} = useInventory();
     const { likedItems, toggleLike } = useLiked();
     return (
         <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
@@ -67,7 +68,7 @@ export default function Home() {
                                 style={{ width: '100%', height: '100%',objectFit:'contain' }} /></div>
                                 <h3 style={{fontSize:'1.2rem',margin:'15px 0 8px 0',}}>{product.title}</h3>
                                 <p style={{fontWeight:'bold',color:'#0070f3'}}>Rs.{product.price}</p>
-                                <button onClick={() => addToCart(product)}style={{width:'100%',padding:'10px',background:'#222',color:'#fff',border:'none',borderRadius:'8px',cursor:'pointer'}}>Add To Cart</button>
+                                <button onClick={() => addInventoryItem(product)}style={{width:'100%',padding:'10px',background:'#222',color:'#fff',border:'none',borderRadius:'8px',cursor:'pointer'}}>Add To Cart</button>
                             </div>
                         );
                     })}

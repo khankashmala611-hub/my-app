@@ -3,18 +3,13 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useInventory } from "@/app/context/InventoryContext"
 import { motion, AnimatePresence } from 'motion/react';
-
-
-
-
-
-
-
-
-
+import { span } from "motion/react-client";
 export default function Navbar() {
     const [isOpen, setOpen] = useState(false);
     const { inventory } = useInventory();
+    const totalCartItems = inventory.reduce((total, item:any)=> total +(item.quantity || 1),0);
+    console.log("Navbar Inventory Data:",inventory,"Total Count:", totalCartItems);
+    
 
     const navLinks = [
         { name: 'Home', path: '/' },
@@ -25,19 +20,23 @@ export default function Navbar() {
         { name: 'Login', path: '/login' },
     ];
     return (
-        <nav className="bg-neutral-900 border-b border-neutral-800 text-white sticky top-0 z-50 px-6 py-4">
+         <nav className="bg-neutral-900 border-b border-neutral-800 text-white sticky top-0 z-50 px-6 py-4">
             <div className="max-w-7xl mx-auto flex justify-between items-center">
                 <Link href="/" className="text-xl font-black tracking-tight hover:text-emerald-400 transition-colors">
                     Shoe <span className="text-emerald-400">Store</span>
-                </Link>
-                <div className="hidden md:flex items-center gap-6 font-medium text-sm text-neutral-300">
-                    {navLinks.map((link) => (
-                        <Link key={link.name} href={link.path} className="hover:text-white transition-colors">
-                            {link.name}
-                        </Link>
-                    ))}
-                </div>
+                 </Link>
+                 <div className="hidden md:flex items-center gap-6 font-medium text-sm text-neutral-300">
+                     {navLinks.map((link) => (
+                         <Link key={link.name} href={link.path} className="hover:text-white transition-colors flex items-center gap-1.5">
+                            <span>{link.name}</span> 
+                            {link.name === "Cart" && totalCartItems > 0 &&(
+                                <span className="bg-white text-black text-[11px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-pulse">{totalCartItems}</span>
+                            )}
+                         </Link>
+                     ))}
+                 </div>
                 <button
+
                 onClick={() => setOpen(!isOpen)}
                 className="md:hidden text-neutral-400 hover:text-white focus:outline-none z-50"
                 >
@@ -64,9 +63,12 @@ export default function Navbar() {
                         key={link.name}
                         href={link.path}
                         onClick={()=> setOpen(false)}
-                        className="text-neutral-300 hover:text-emerald-400 transition-color py-2 border-b border-neutral-900 last:border-0"
+                        className="text-neutral-300 hover:text-emerald-400 transition-color  flex items-center justify-between w-full py-2 border-b border-neutral-900 last:border-none"
                         >
-                        {link.name}
+                        <span>{link.name}</span>
+                          {link.name === "Cart" && totalCartItems > 0 &&(
+                                <span className="bg-white text-black text-[11px] font-bold h-4 w-4 rounded-full flex items-center justify-center ">{totalCartItems}</span>
+                            )}
                         </Link>
                     ))}
                     </motion.div>
