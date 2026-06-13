@@ -68,7 +68,13 @@ export default function Home() {
                                 style={{ width: '100%', height: '100%',objectFit:'contain' }} /></div>
                                 <h3 style={{fontSize:'1.2rem',margin:'15px 0 8px 0',}}>{product.title}</h3>
                                 <p style={{fontWeight:'bold',color:'#0070f3'}}>Rs.{product.price}</p>
-                                <button onClick={() => addInventoryItem(product)}style={{width:'100%',padding:'10px',background:'#222',color:'#fff',border:'none',borderRadius:'8px',cursor:'pointer'}}>Add To Cart</button>
+                                <button 
+                                    onClick={() => addInventoryItem({
+                                    name:product.title || product.name,
+                                    price:String(product.price),
+                                    imageName:product.image || product.imageName,
+                                    quantity:1
+                                })}style={{width:'100%',padding:'10px',background:'#222',color:'#fff',border:'none',borderRadius:'8px',cursor:'pointer'}}>Add To Cart</button>
                             </div>
                         );
                     })}
